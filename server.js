@@ -1,7 +1,5 @@
 // se importa el server y el socket
 const { get_app, get_server, get_socket } = require("./src/v1/lib/server");
-// se importa path para el manejo de nuestros paths en el server
-const path = require("path");
 // se importa body-parser
 const bodyParser = require("body-parser");
 // se importa e instancía dotenv

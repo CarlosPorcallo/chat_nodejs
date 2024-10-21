@@ -61,7 +61,7 @@
             const socket = io.connect(base_url, {forceNew: true});
             socket.on("mensaje", (mensaje) => {
                 agregarMensajes(mensaje);
-            })
+            });
         </script>
     </body>
 </html>

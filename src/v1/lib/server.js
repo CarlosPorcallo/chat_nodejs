@@ -48,7 +48,7 @@ const get_socket = () => {
     } else {
         console.log("Ya existe un socket");
     }
-    return io
+    return io;
 }
 
 const get_server = () => {
@@ -57,7 +57,7 @@ const get_server = () => {
     } else {
         console.log("Ya existe un server");
     }
-    return server
+    return server;
 }
 
 // se exporta para poder usarlo en todo el proyecto
