@@ -24,16 +24,43 @@ const get_app = () => {
         // se instancía socket.io
         console.log("Se crea un nuevo socket");
         server = http.createServer((req, res) => {
-            if (req.url === '/') {
-                fs.readFile(`./src/${version}/views/index.html`, (err, data) => {
-                    if (err) {
-                        console.error("Ocurrió un error al intentar setear el archivo estático para ésta ruta: ", err)
-                        res.send(500);
-                    } else {
-                        res.end(data);
-                    }
-                });
-            };
+            switch(req.url) {
+                case '/':
+                    fs.readFile(`./src/${version}/views/index.html`, (err, data) => {
+                        if (err) {
+                            console.error("Ocurrió un error al intentar setear el archivo estático para ésta ruta: ", err)
+                            res.end(500);
+                        } else {
+                            res.end(data);
+                        }
+                    });
+                    break;
+                case '/signup':
+                    fs.readFile(`./src/${version}/views/usuarios/register.html`, (err, data) => {
+                        if (err) {
+                            console.error("Ocurrió un error al intentar setear el archivo estático para ésta ruta: ", err)
+                            res.end(500);
+                        } else {
+                            res.end(data);
+                        }
+                    });
+                    break;
+                case '/login':
+                    fs.readFile(`./src/${version}/views/usuarios/login.html`, (err, data) => {
+                        if (err) {
+                            console.error("Ocurrió un error al intentar setear el archivo estático para ésta ruta: ", err)
+                            res.end(500);
+                        } else {
+                            res.end(data);
+                        }
+                    });
+                    break;
+                default:
+                    res.statusCode = 404;
+                    res.setHeader("Content-Type", "text/plain");
+                    res.end("Recurso no encontrado!!!\n");
+            }
+
         });
         io = socketIo(server);
     } else {

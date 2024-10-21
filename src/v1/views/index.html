@@ -30,12 +30,18 @@
                             {
                                 nombre: $("#nombre").val(), 
                                 mensaje: $("#mensaje").val()
-                            }
+                            },
+                            callback,
+                            callback_error
                         )
                     } else {
                         alert("Por favor llene todos los campos antes de continuar.");
                     }
                 })
+                const username = localStorage.getItem("username");
+                if (username !== undefined) {
+                    $("#nombre").val(username);
+                }
             });
             const base_url = "http://localhost:3000";
             const base_url_api = "http://localhost:3001";
@@ -50,12 +56,27 @@
             const obtenerMensajes = () => {
                 $.get(`${url}/mensaje`, data => data.forEach(agregarMensajes));
             }
+
+            const callback = (response_data, status, xhr) => console.log(response_data);
+
+            const callback_error = (response_data, status, xhr) =>{
+                if (xhr === "Forbidden") {
+                    window.location.replace(`${base_url}/login`);
+                } else {
+                    alert("Ocurrió un error al intentar crear al usuario.");
+                }
+            };
                 
-            const enviarMensaje = (mensaje, callback) => $.post(
-                `${url}/mensaje`, 
-                mensaje,
-                callback
-            );
+            const enviarMensaje = (mensaje, callback, callback_error) => $.ajax({
+                url: `${url}/mensaje`, 
+                headers: {
+                    "Authorization": `Bearer ${ localStorage.getItem("token") }`
+                },
+                type: 'POST',
+                data: mensaje,
+                success: callback,
+                error: callback_error
+            });
 
             // socket.io
             const socket = io.connect(base_url, {forceNew: true});
