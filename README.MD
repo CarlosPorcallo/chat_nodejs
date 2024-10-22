@@ -1,5 +1,7 @@
 # Curso NodeJS - Práctica 3: Chat
 
+Un pequeño cliente chat creado con Node.JS
+
 ## Getting Started
 
 Primero, hay que instalar las dependencias del proyecto:
