@@ -74,7 +74,7 @@ const login = (req, res) => {
   
 const logout = async (req, res) => {
     const token = req.headers.authorization?.split(" ")[1];
-    const userId = new ObjectID(req.user._id);
+    const userId = new ObjectID(req.body._id);
   
     try {
       const remainingTime = getTokenRemainingTime(token);
@@ -91,6 +91,30 @@ const logout = async (req, res) => {
         message:
           "Ocurrió un error al generar el token temporal, inténtelo más tarde",
       });
+    }
+  };
+
+  const getTokenRemainingTime = (token) => {
+    try {
+      const decoded = jwt.decode(token);
+      const currentTime = Math.floor(Date.now() / 1000);
+      const remainingTime = decoded.exp - currentTime;
+      return remainingTime > 0 ? remainingTime : 0;
+    } catch (error) {
+      console.error(`Error al decodificar el token: ${error}`);
+      return 0;
+    }
+  };
+  
+  const createTemporaryToken = async (doc, remainingTime) => {
+    try {
+      const expiration = new Date();
+      expiration.setSeconds(expiration.getSeconds() + remainingTime);
+  
+      doc.expiration = expiration;
+      await userDB.create(doc, remainingTime);
+    } catch (error) {
+      console.error(`Ocurrió un error al intentar cerrar sesión: ${error}`);
     }
   };
 

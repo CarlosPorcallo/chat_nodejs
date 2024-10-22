@@ -32,7 +32,7 @@
                 $("#enviar").click(() => {
                     if ($("#nombre").val() !== "" && $("#password").val() !== "" && $("#email").val() !== "") {    
                         if ($("#password").val() === $("#password-confirm").val()) {
-                            const password = $("#mensaje").val();
+                            const password = $("#password").val();
                             enviarUsuario(
                                 {
                                     nombre: $("#nombre").val(), 

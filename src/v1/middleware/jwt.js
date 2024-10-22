@@ -1,5 +1,6 @@
 
 const jwt = require("jsonwebtoken");
+const ObjectID = require("mongodb").ObjectId;
 const tokenModel = require("../models/tokenModel");
 
 const sendUnauthorizedResponse = (res) => {
@@ -26,7 +27,11 @@ const authenticateToken = async (req, res, next) => {
 
 const checkTokenExists = async (id, token) => {
     try {
-      const result = await tokenModel.getById(new ObjectID(id));
+      const query = {
+        _id: new ObjectID(id)
+      };
+
+      const result = await tokenModel.getBy(query, {});
       return result ? result.token === token : false;
     } catch (error) {
       console.error(`Error al verificar la existencia del token: ${error}`);

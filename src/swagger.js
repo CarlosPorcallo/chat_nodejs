@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 // variables de entorno
-const HOST = process.env.HOST || "localhost";
+const host = process.env.HOST || "localhost";
 
 // jwt
 const jwt = require('jsonwebtoken');
@@ -50,7 +50,7 @@ const swaggerDocs = (app, port) => {
     res.send(swaggerSpec);
   });
   console.log(
-    `Version 1 Swagger Docs are available on http://${HOST}:${port}/api/${process.env.VERSION}/`
+    `Version 1 Swagger Docs are available on http://${host}:${port}/api/${process.env.VERSION}/`
   );
 };
 

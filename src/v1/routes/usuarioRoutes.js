@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 // se importan los controladores
-const {login, logout, createAccount} = require("../controllers/usuarioController")
+const {login, logout, createAccount} = require("../controllers/usuarioController");
+const { authenticateToken } = require("../middleware/jwt");
 
 // se crea cada ruta
 /**
@@ -64,26 +65,19 @@ const {login, logout, createAccount} = require("../controllers/usuarioController
 router.post("/login", login);
 /**
  * @openapi
-* /api/v1/usuarios/logout:
+ * /api/v1/usuarios/logout:
  *   post:
  *     tags:
  *       - Usuarios
+ *     security:
+ *       - bearerAuth: []
  *     summary: Logout de usuario.
- *     parameters:
- *       - in: body
- *         name: token
- *         required: true
- *         schema:
- *             type: string
- *             description: Nombre del usuario
- *             default: Tyler
- *             example: Tyler
- *       - in: body
- *         name: _id
- *         required: true
- *         schema:
- *             type: string
- *             description: ID único del usuario
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *              $ref: "#definitions/UserLogout"
  *     responses:
  *       200:
  *         description: Metodo para cerrar la sesión de un usuario.
@@ -109,8 +103,17 @@ router.post("/login", login);
  *                 status:
  *                   type: number
  *                   example: 500
+ * definitions:
+ *    UserLogout: 
+ *      type: object
+ *      required:
+ *          - _id
+ *      properties:
+ *        _id:
+ *             type: string
+ *             description: ID único del usuario del usuario
  */
-router.post("/logout", logout);
+router.post("/logout", authenticateToken, logout);
 
 /**
  * @openapi
@@ -119,8 +122,6 @@ router.post("/logout", logout);
  *     tags:
  *       - Usuarios
  *     summary: Crea un nuevo usuario.
- *     consumes:
- *       - application/json
  *     requestBody:
  *       required: true
  *       content:
