@@ -27,7 +27,7 @@ TTL_JWT=1800 # 30 minutos
 TTL_JWT_STR="30m" # 30 minutos
 ```
 
-Una vez que se cumplen los requisitos se puede ejecutar el oproyecto:
+Una vez que se cumplen los requisitos y se ha creado la base de datos MongoDB se puede ejecutar el proyecto:
 
 ```bash
 npm run start
