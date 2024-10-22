@@ -112,7 +112,7 @@ const logout = async (req, res) => {
       expiration.setSeconds(expiration.getSeconds() + remainingTime);
   
       doc.expiration = expiration;
-      await userDB.create(doc, remainingTime);
+      await userModel.save(doc, remainingTime);
     } catch (error) {
       console.error(`Ocurrió un error al intentar cerrar sesión: ${error}`);
     }
