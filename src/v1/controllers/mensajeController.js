@@ -5,7 +5,7 @@ const { get, save } = require("../models/mensajeModel");
 const { get_socket } = require("../lib/server");
 
 const get_mensajes = (req, res) => {
-    promise = get();
+    const promise = get();
     promise.then(mensajes => res.send(mensajes, 200)).catch(err => {
         console.error("Ocurrió un error al intentar salvar el mensaje: ", err);
         res.sendStatus(500);
@@ -13,7 +13,7 @@ const get_mensajes = (req, res) => {
 };
 
 const save_mensaje = (req, res) => {
-    promise = save(req.body);
+    const promise = save(req.body);
     promise.then(insertResult => {
         if (insertResult) {
             const io = get_socket();
