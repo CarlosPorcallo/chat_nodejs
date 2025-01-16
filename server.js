@@ -2,10 +2,10 @@
 const { get_app, get_server, get_socket } = require("./src/v1/lib/server");
 // se importa body-parser
 const bodyParser = require("body-parser");
-// se importa e instancía dotenv
 require('dotenv').config();
 
-app = get_app()
+const app = get_app()
+
 // puerto de la aplicación
 const port_server = process.env.PORT_SERVER;
 const port_socket = process.env.PORT_SOCKET;
@@ -42,6 +42,7 @@ server.listen(port_socket, () => {
     io.on("connection", () => console.log("Un usuario esta conectado."));
     io.on("connect_error", () => console.log("Ocurrió un error al intentar levantar el socket."));
     io.on("disconnect", () => console.log("Un usuario esta desconectado."));
+    console.log(`Acceso al chat listo y escuchando en http://localhost:${port_socket}/login`);
     console.log(`Socket listo y escuchando en http://localhost:${port_socket}`);
 });
 
