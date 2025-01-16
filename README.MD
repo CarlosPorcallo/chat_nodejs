@@ -1,4 +1,4 @@
-# Curso NodeJS - Práctica 3: Chat
+# Curso NodeJS - Práctica Chat
 
 Un pequeño cliente chat creado con Node.JS
 
@@ -35,4 +35,4 @@ npm run start
 
 Abrir [http://localhost:3001/api/v1](http://localhost:3001/api/v1) con el navegador web para acceder a la documentación Swagger de la API del chat.
 
-Abrir [http://localhost:3000](http://localhost:3000) con el navegador web para acceder al chat.
+Abrir [http://localhost:3000/login](http://localhost:3000/login) con el navegador web para acceder al chat.

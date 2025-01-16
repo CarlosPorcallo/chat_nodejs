@@ -4,6 +4,7 @@
   "description": "Proyecto Chat",
   "main": "server.js",
   "scripts": {
+    "install": "npm install",
     "start": "nodemon server.js"
   },
   "keywords": [],
