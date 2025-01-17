@@ -1,0 +1,18 @@
+applications:
+- api_domain: 5783c32a4k.execute-api.us-east-2.amazonaws.com
+  application_name: lambda_test
+  authentication_mode: non-authenticated
+  exclude_paths: []
+  target_url: https://5783c32a4k.execute-api.us-east-2.amazonaws.com/dev/lola
+  type: web
+deployment:
+  environments:
+  - dev
+plan_items:
+  item-web-app-scanner:
+    deployment:
+      configuration:
+      - lambda_test
+      tags:
+      - dev
+      trigger: deployment
